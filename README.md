@@ -3,9 +3,9 @@
 **Speech Interaction - Abschlussprojekt**
 > *muss noch Kürzel ergänzen*
 
--Sophie Barke (sb...)
--Alex Quadflieg (aq...)
--Julia Herold (jh308)
+Sophie Barke (sb...) 
+Alex Quadflieg (aq...) 
+Julia Herold (jh308) 
 
 ## Projektbeschreibung
 
