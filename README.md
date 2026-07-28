@@ -2,9 +2,10 @@
 
 **Speech Interaction - Abschlussprojekt**
 > *muss noch Kürzel ergänzen*
-Sophie Barke (sb...)
-Alex Quadflieg (aq...)
-Julia Herold (jh308)
+
+-Sophie Barke (sb...)
+-Alex Quadflieg (aq...)
+-Julia Herold (jh308)
 
 ## Projektbeschreibung
 
@@ -13,6 +14,7 @@ Moderne Sprachassistenten wie Amazon Alexa, Apple Siri oder Google Assistant sin
 Ein grundlegendes Problem dieser Systeme ist, dass das Wake Word von beliebigen Personen im Raum ausgesprochen werden kann. Das Base Model unterscheidet nicht zwischen der autorisierten Zielperson und anderen Sprechern, was zu ungewollten Aktivierungen und potenziellen Sicherheitsproblemen führen kann.
 
 > *ab hier noch prüfen auf Korrektheit*
+
 Ziel dieses Projekts ist es, eine zweite Verifikationsstufe zu evaluieren: ein sogenanntes Verifier Model. Dieses Modell wird spezifisch auf die Stimme einer Zielperson trainiert und prüft nach jeder Aktivierung durch das Base Model, ob die erkannte Stimme tatsächlich zur autorisierten Person gehört. Nur wenn beide Modelle eine positive Bewertung liefern, wird das System final aktiviert.
 
 Im Rahmen des Projekts werden mehrere Verifier Modelle trainiert und unter verschiedenen Bedingungen evaluiert – sowohl mit sauberen Aufnahmen als auch mit Hintergrundgeräuschen. Als Messgrößen dienen die False-Accept-Rate (Fehlaktivierungen durch fremde Stimmen) und die False-Reject-Rate (verpasste Aktivierungen der Zielstimme).
