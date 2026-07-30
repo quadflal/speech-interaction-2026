@@ -3,6 +3,10 @@
 Hierbei handelt es sich um die Dokumentation für das Modul Speech Interaction aus dem Studiengang Medieninformatik an
 der Hochschule der Medien in Stuttgart.
 
+> [!NOTE]
+> This is the original version written in German.
+> An English translation can be found here: [English Documentation](/Documentation_English.md)
+
 ### Inhaltverzeichnis
 
 - [Ziel](#ziel)
