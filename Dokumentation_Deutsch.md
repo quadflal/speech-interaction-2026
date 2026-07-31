@@ -32,7 +32,7 @@ werden, ob ein solches Modell zuverlässig zwischen der gesetzten Zielperson und
 als zweite Sicherheitsstufe eingesetzt werden kann.
 
 Die zentrale Forschungsfrage lautet:
-> *Kann ein Verifier Model mmit Gewissheit zu sicheren Nutzerverifikation eingesetzt werden ?*
+> *Kann ein Verifier Model mit Gewissheit zu sicheren Nutzerverifikation eingesetzt werden ?*
 
 ## Motivation
 
@@ -61,7 +61,7 @@ Technische Rahmenbedingungen:
 
 ## Konzeptionierung
 
-###System-Architektur
+### System-Architektur
 
 Das System besteht aus zwei aufeinanderfolgenden Stufen:
 
@@ -86,7 +86,7 @@ flowchart TD
 
 Um die Robustheit des Systems zu evaluieren, wurden zwei Testbedingungen definiert:
 
-**1. Saubere Aufnahmen*
+**1.Saubere Aufnahmen**
 Kontrollierte Umgebung ohne Störfaktor als Baseline.
 
 **2.Santa Barbara Corpus (False-Positive-Stresstest)**
@@ -94,7 +94,7 @@ Stunden natürlicher Alltagsgespräche ohne das Wake Word "Alexa" werden abgespi
 wird, wie oft das System trotzdem fälschlich auslöst. Damit wird das Base Model und der 
 Verifier auf realistischer gesprochene Sprache getestet.
 
-###Messgrößen
+### Messgrößen
 
 | Metrik | Beschreibung |
 |--------|-------------|
