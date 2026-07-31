@@ -36,13 +36,13 @@ Die zentrale Forschungsfrage lautet:
 
 ## Motivation
 
-Moderne Sprachassistenten wie AMazon Alexa, Apple siri oder Google Assistant sind heute weit verbreitet und werden über ein 
+Moderne Sprachassistenten wie Amazon Alexa, Apple siri oder Google Assistant sind heute weit verbreitet und werden über ein 
 sogenanntes Wake Word aktiviert. Ein grundlegendes Problem dieser Systeme besteht darin, dass das Base Model lediglich das Wake Word 
 erkennt, jedoch nicht zwischen der autorisierten Zielperson und anderen Sprechern unterscheidet. Dadurch kann es zu unbeabsichtigten 
-Aktivierungen und somit potenziellen sicherheitsproblemen führen.
+Aktivierungen und somit potenziellen Sicherheitsproblemen führen.
 
 Vor diesem Hintegrund untersucht dieses Projekt, ob ein zusätzliches Verifier Model zu sicheren Nutzerverifikation eingesetzt werden 
-kann. Für die Umsetzung wurde die Open-Source-Bibliothek openWakeWord [openWakeWord](https://github.com/dscripka/openWakeWord) gewähl, da sie eine einfache Implementierung der Wake-Word-Erkennung 
+kann. Für die Umsetzung wurde die Open-Source-Bibliothek openWakeWord [openWakeWord](https://github.com/dscripka/openWakeWord) gewählt, da sie eine einfache Implementierung der Wake-Word-Erkennung 
 sowie vortrainierte Modelle für verschiedene Wake Words bereitstellt. Die gewonnenen Erkenntnisse werden dokumentiert und können ggf. 
 für zukünftige Projekte genutzt werden.
 
@@ -59,7 +59,7 @@ Technische Rahmenbedingungen:
 | Umgebung | Google Colab (T4 GPU) |
 | Wake Word | „Alexa" |
 
-Die Nutzung von Google Colab wer eine bewusste Entscheidung, da lokale Entwicklungen auf macOS zu 
+Die Nutzung von Google Colab war eine bewusste Entscheidung, da lokale Entwicklungen auf macOS zu 
 Kompatibilitätsproblemen mit Abhängigkeiten geführt haben.
 
 Die Audioaufnahmen wurden von den Teammitgliedern sowie weiterern Personen selbst aufgezeichnet und 
@@ -73,8 +73,8 @@ und Fremdsprecher werden in vergleichbaren wissenschaftlichen Arbeiten mehrere h
 Larcher et al. nutzen beispielsweise in RSR2015-Datensatz 300 Sprecher (143 weibliche, 157 männliche) um die Speaker-Verification-Systeme zu evaluieren.
 [[1]](#quellen)
 
-In unserem Projekt standen für das Training lediglich Aufnahmen von drei Personen als negative Beispiele zur Verfügugn. Dies ist im Rahmen eines
-Universitätsprojekts mit begrenztem Zeitrahmen entsprechen einzuordenen. Somit können die Ergbnisse nicht sicher mit professionellen 
+In unserem Projekt standen für das Training lediglich Aufnahmen von drei Personen als negative Beispiele zur Verfügung. Dies ist im Rahmen eines
+Universitätsprojekts mit begrenztem Zeitrahmen entsprechen einzuordenen. Somit können die Ergebnisse nicht sicher mit professionellen 
 Sprecher-Verifikations-System verglichen werden. 
 
 ## Konzeptionierung
@@ -101,8 +101,8 @@ flowchart TD
 ```
 
 Das Base Model erkennt das Wake Word "Alexa" sprecherunabhängig. 
-Überschreitet der Score einen definiereten Threshold, wird das Verifier Model aktiviert, das zusätzlich prüft 
-ob die Stimme zur Zielperson gehört. Nur wenn beide Modelle positiv ausschlage, erfolgt eine Aktivierung.
+Überschreitet der Score einen definiereten Schwellwert, wird das Verifier Model aktiviert, das zusätzlich prüft 
+ob die Stimme zur Zielperson gehört. Nur wenn beide Modelle positiv ausschlagen, erfolgt eine Aktivierung.
 
 ### Versuchsaufbau
 
@@ -172,7 +172,7 @@ negativen Clips bleiben dabei identisch. Jedes trainierte Modell wird als '.pkl'
 
 **4. Evaluation und Threshold-Analyse**
 
-Jeder der drei Verifier wird mit ThresholdWerten von 0.7 bis 0.95 getestet. Für jeden Threshold werden FAR und FRR
+Jeder der drei Verifier wird mit Threshold-Werten von 0.7 bis 0.95 getestet. Für jeden Threshold werden FAR und FRR
 auf den Testdaten gemessen. Zusätzlich wird der Santa Barbara Corpus als Stresstest für die False-Accept-Rate verwendet.
 
 ### Ordnerstruktur
@@ -182,7 +182,7 @@ auf den Testdaten gemessen. Zusätzlich wird der Santa Barbara Corpus als Stress
 
 ### Threshold-Analyse
 
-Die Auswertung zeigt eine klare Trad-off zwishcen FAR und FRR in Abhängigkeit vom gewählten Thr3eshold:
+Die Auswertung zeigt eine klare Trad-off zwishcen FAR und FRR in Abhängigkeit vom gewählten Threshold:
 
 | Threshold | FRR (Zielperson) | FAR (männl. Sprecher) | FAR (weibl. Sprecher) |
 |-----------|-----------------|----------------------|----------------------|
@@ -198,12 +198,12 @@ Die Auswertung zeigt eine klare Trad-off zwishcen FAR und FRR in Abhängigkeit v
 *Abbildung 1: FAR und FRR in Abhängigkeit vom Threshold*
 
 
-Bei einem Threshold von 0.8 wird die beste Balance erziehlt: 
+Bei einem Threshold von 0.8 wird die beste Balance erzielt: 
 Die Zielperson wird zuverlässig erkannt (FRR = 0%). Die männlichen Fremdsprecher werden hier vollständig abgelehtn (FAR= 0%).
-Die FAR für weibliche Sprecher beträgt hier noch 40%, das lässt sich jedoch zurück führen auf eine Ähnlichkeit in der Stimmcharakteristik.
+Die FAR für weibliche Sprecher beträgt hier noch 40%, das lässt sich jedoch zurück führen auf die Ähnlichkeit in der Stimmcharakteristik.
 
 Ab Threshold 0.85 steigt der FRR bereits auf 20 %, was bedeutet, dass die Zielperson in einem von fünf Fällen nicht mehr erkannt wird.
-Bei 0.95 wird die Zielperson vollständig abgelehtn, somit kann man schließen dass das Modell für den praktischen Einsatz unbrauchbar ist.
+Bei 0.95 wird die Zielperson vollständig abgelehnt, somit kann man schließen dass das Modell für den praktischen Einsatz unbrauchbar ist.
 
 ### Einfluss der Trainingsdatenmenge
 
@@ -219,12 +219,12 @@ in den meisten Fällen herausfiltern.
 
 ## Fazit
 
-Die Forschungsfrage, oob ein Verifier Model mit GEwissheit zur sicheren Nutzverifikation eingesetzt werden kann, muss mit **Nein** 
+Die Forschungsfrage, oob ein Verifier Model mit Gewissheit zur sicheren Nutzverifikation eingesetzt werden kann, muss mit **Nein** 
 beantwortet werden.
 
-Der Verifier reduziert Fehlalarme sinnvoll und dtellt eine zweite Sicherheitsstufe dar. Er ist jedoch nicht zuverlässig genu, 
-um als alleinige Sicherheitsmaßnahke zu gelten. Vorallem die erhöhte FAR bei weiblichen Fremdsprechern zeigt, dass das Modell bei ähnlichen
-Stimmcharakteristiken an seine GRenzen stößt.
+Der Verifier reduziert Fehlalarme sinnvoll und stellt eine zweite Sicherheitsstufe dar. Er ist jedoch nicht zuverlässig genug, 
+um als alleinige Sicherheitsmaßnahme zu gelten. Vorallem die erhöhte FAR bei weiblichen Fremdsprechern zeigt, dass das Modell bei ähnlichen
+Stimmcharakteristiken an seine Grenzen stößt.
 
 Folgende Erkenntnisse lassen sich festhalten:
 
