@@ -26,13 +26,13 @@ Sicherheitsmaßnahme geeignet sind.
 
 ## Durchführung
 
-Die gesamte ÄImplementierung und Auswertung läuft in einem Google Colab Notbook [Linktext](Evaluation.ipynb).
+Die gesamte ÄImplementierung und Auswertung läuft in einem Google Colab Notbook [Notebook](Evaluation.ipynb).
 Um die Ergebnisse nachzuvollziehen oder selber zu reproduzieren, muss das Notebook geöffnet und ausgeführt werden.
 
 #### Schritte
 
 1. Google Colab öffnen: [colab.research.google.com](https://colab.research.google.com)
-2. Das Notebook aus diesem Repository laden: [Linktext](Evaluation.ipynb)
+2. Das Notebook aus diesem Repository laden: [Notebook](Evaluation.ipynb)
 3. Google Drive einbinden (Anleitung im Notebooke enthalten)
 4. Alle Zeilen von oben nach unten ausführen: `Laufzeit → Alle ausführen`
 
