@@ -61,4 +61,7 @@ Die vollständige Dokumentation ist hier verfügbar:
   WakeWords Integrated with Speaker Recognition.* arXiv:2407.18985
 - Du Bois et al., *Santa Barbara Corpus of Spoken American English*, 
   UC Santa Barbara / Linguistic Data Consortium
-
+- Larcher, A., Lee, K. A., Ma, B. & Li, H. (2014). 
+  *Text-dependent Speaker Verification: Classifiers, databases 
+  and RSR2015.* Speech Communication, 60, 56–77. 
+  [sciencedirect.com](https://www.sciencedirect.com/science/article/pii/S0167639314000156)
