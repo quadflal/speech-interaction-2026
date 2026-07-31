@@ -192,8 +192,11 @@ Die Auswertung zeigt eine klare Trad-off zwishcen FAR und FRR in Abhängigkeit v
 | 0.90 | 60% | 0% | 0% |
 | 0.95 | 100% | 0% | 0% |
 
+
 ![Threshold Analyse](images/False_Acceptance_Rate_Threshold.png)
+
 *Abbildung 1: FAR und FRR in Abhängigkeit vom Threshold*
+
 
 Bei einem Threshold von 0.8 wird die beste Balance erziehlt: 
 Die Zielperson wird zuverlässig erkannt (FRR = 0%). Die männlichen Fremdsprecher werden hier vollständig abgelehtn (FAR= 0%).
