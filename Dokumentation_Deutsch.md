@@ -112,9 +112,11 @@ vielen Trainingsdaten trainiert (3, 5 und 10 positive Clips).
 Jede Variante wurde unter diesen Bedingungen getestet:
 
 **1.Saubere Aufnahmen**
+
 Kontrollierte Umgebung ohne Störfaktor als Baseline.
 
 **2.Santa Barbara Corpus (False-Positive-Stresstest)**
+
 Stunden natürlicher Alltagsgespräche ohne das Wake Word "Alexa" werden abgespielt. Gemessen
 wird, wie oft das System trotzdem fälschlich auslöst. Damit wird das Base Model und der 
 Verifier auf realistischer gesprochene Sprache getestet.
@@ -153,19 +155,23 @@ dort nachvollziehbar:
 Das Notebook ist in vier Hauptbereiche gegliedert:
 
 **1. Installation und Imports**
+
 openWakeWord und alle benötigten Bibliotheken werden installiert und importiert.
 
 **2. Datenvorbereitung**
+
 Alle Audiodatein aus dem gemeinsamen Google Drive Ordner "recordings" werden eingelesen und 
 automatisch in das von openWakeWord verlangte Format konvertiert ('.wav', '16kHz', Mono). 
 Die ursprüngliche Ordnerstruktur wird dabei eins zu eins in einem neuen Ordner "recordings_converted" 
 kopiert, sodass die Originaldateienn erhalten bleiben.
 
 **3. Verifier Training**
+
 Es werden drei Verifier mit unterschiedlich vielen positiven Trainngsclips trainiert (3, 5 und 10). Die
 negativen Clips bleiben dabei identisch. Jedes trainierte Modell wird als '.pkl'-Datei im Drive gespeichert.
 
 **4. Evaluation und Threshold-Analyse**
+
 Jeder der drei Verifier wird mit ThresholdWerten von 0.7 bis 0.95 getestet. Für jeden Threshold werden FAR und FRR
 auf den Testdaten gemessen. Zusätzlich wird der Santa Barbara Corpus als Stresstest für die False-Accept-Rate verwendet.
 
