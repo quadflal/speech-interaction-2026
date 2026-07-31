@@ -48,16 +48,34 @@ für zukünftige Projekte genutzt werden.
 
 ## Randbedingungen
 
-Technische Rahmenbedingungen:
+Das Projekt wurde im Rahmen des Moduls Speech Interaktion im Sommersemester 2026 an der Hochschule der Medien Stuttgart durchgeführt.
 
+Technische Rahmenbedingungen:
 
 | Komponente | Technologie |
 |-----------|-------------|
-| Framework | openWakeWord |
-| Sprache | Python |
+| Framework | openWakeWord 0.6.0 |
+| Sprache | Python 3.12|
 | Umgebung | Google Colab (T4 GPU) |
 | Wake Word | „Alexa" |
 
+Die Nutzung von Google Colab wer eine bewusste Entscheidung, da lokale Entwicklungen auf macOS zu 
+Kompatibilitätsproblemen mit Abhängigkeiten geführt haben.
+
+Die Audioaufnahmen wurden von den Teammitgliedern sowie weiterern Personen selbst aufgezeichnet und 
+mussten für die Verarbeitung einheitlich in das Format '.wav', '16kHz', Mono konvertiert werden, da openWakeWord
+ausschließlich dieses Format akzeptiert.
+
+### Limitierung der False Trainingsdaten
+
+Eine bekannte Schwäche unseres Versuchsaufbaus ist die geringe anzahl an negativen Trainingsdaten. Für eine robuste Unterscheidung zwischen Zielsprecher 
+und Fremdsprecher werden in vergleichbaren wissenschaftlichen Arbeiten mehrere hundert Sprecher verwendet.
+Larcher et al. nutzen beispielsweise in RSR2015-Datensatz 300 Sprecher (143 weibliche, 157 männliche) um die Speaker-Verification-Systeme zu evaluieren.
+[[1]](#quellen)
+
+In unserem Projekt standen für das Training lediglich Aufnahmen von drei Personen als negative Beispiele zur Verfügugn. Dies ist im Rahmen eines
+Universitätsprojekts mit begrenztem Zeitrahmen entsprechen einzuordenen. Somit können die Ergbnisse nicht sicher mit professionellen 
+Sprecher-Verifikations-System verglichen werden. 
 
 ## Konzeptionierung
 
@@ -82,9 +100,16 @@ flowchart TD
     style F fill:#dc2626,color:#fff
 ```
 
-### Versuchsaufbau & Testbedingungen
+Das Base Model erkennt das Wake Word "Alexa" sprecherunabhängig. 
+Überschreitet der Score einen definiereten Threshold, wird das Verifier Model aktiviert, das zusätzlich prüft 
+ob die Stimme zur Zielperson gehört. Nur wenn beide Modelle positiv ausschlage, erfolgt eine Aktivierung.
 
-Um die Robustheit des Systems zu evaluieren, wurden zwei Testbedingungen definiert:
+### Versuchsaufbau
+
+Um die Robustheit des Systems zu evaluieren, wurden drei Varianten des Verifiers mit unterschiedlich
+vielen Trainingsdaten trainiert (3, 5 und 10 positive Clips).
+
+Jede Variante wurde unter diesen Bedingungen getestet:
 
 **1.Saubere Aufnahmen**
 Kontrollierte Umgebung ohne Störfaktor als Baseline.
@@ -98,57 +123,104 @@ Verifier auf realistischer gesprochene Sprache getestet.
 
 | Metrik | Beschreibung |
 |--------|-------------|
-| **Erkennungsrate** | Zielstimme wird korrekt erkannt |
 | **False-Accept-Rate (FAR)** | Fehlaktivierung durch fremde Stimme |
 | **False-Reject-Rate (FRR)** | Zielstimme wird nicht erkannt |
 
 ### Trainingsdaten
->*muss noch ergänzt und korrigiert werden*
 
-#### Positive Clips (True)
-- Aufnahmen der Zielstimme mit dem Wake Word „Alexa"
-- Mind. 3–5 Aufnahmen pro Zielsprecher
-- Format: `.wav`, 16kHz, Mono
-
-#### Negative Clips (False)
-- **Fremde Sprecher:** Andere Personen sprechen das Wake Word „Alexa"
-- **Zielsprecher:** Die Zielperson spricht beliebige andere Sätze 
-  (kein Wake Word)
-- Format: `.wav`, 16kHz, Mono
+| Typ | Inhalt | Sprecher |
+|-----|--------|----------|
+| Positiv (True) | Wake Word „Alexa" | Zielperson (Sophie) |
+| Negativ (False) | Wake Word „Alexa" | Fremde Sprecher (Julia, Alex) |
+| Negativ (False) | Andere Sätze, kein Wake Word | Zielperson (Sophie) |
 
 ### Testdaten
 
-#### Positive Testdaten
-- Separate, neue Aufnahmen der Zielstimme mit dem Wake Word
-- Getestet unter sauberen Bedingungen und mit Hintergrundgeräuschen
-
-#### Negative Testdaten
-- Fremde Sprecher sprechen das Wake Word „Alexa"
-- Zielperson spricht beliebige andere Sätze (kein Wake Word)
-- Santa Barbara Corpus als Stresstest für die False-Accept-Rate
+| Typ | Inhalt | Sprecher |
+|-----|--------|----------|
+| Positiv (True) | Wake Word „Alexa" | Zielperson (Sophie) |
+| Negativ (False) | Wake Word „Alexa" | Fremde Sprecher (Lotte, Marie, Felix, Julia, Alex) |
+| Negativ (False) | Natürliche Alltagsgespräche | Santa Barbara Corpus |
 
 ## Implementierung
->*wird noch ergänzt wenn coding part durch*
 
-### Voraussetzungen 
-- Google Colab (mit T4 GPU)
-- Google Drive (gemeinsamer Ordner)
+Die vollständige Implementierung ist im entsprechenden Notebook dokumentiert und 
+dort nachvollziehbar:
+[`Notebook: Evaluation.ipynb`](Evaluation.ipynb)
+
+### Aufbau des Notebooks
+
+Das Notebook ist in vier Hauptbereiche gegliedert:
+
+**1. Installation und Imports**
+openWakeWord und alle benötigten Bibliotheken werden installiert und importiert.
+
+**2. Datenvorbereitung**
+Alle Audiodatein aus dem gemeinsamen Google Drive Ordner "recordings" werden eingelesen und 
+automatisch in das von openWakeWord verlangte Format konvertiert ('.wav', '16kHz', Mono). 
+Die ursprüngliche Ordnerstruktur wird dabei eins zu eins in einem neuen Ordner "recordings_converted" 
+kopiert, sodass die Originaldateienn erhalten bleiben.
+
+**3. Verifier Training**
+Es werden drei Verifier mit unterschiedlich vielen positiven Trainngsclips trainiert (3, 5 und 10). Die
+negativen Clips bleiben dabei identisch. Jedes trainierte Modell wird als '.pkl'-Datei im Drive gespeichert.
+
+**4. Evaluation und Threshold-Analyse**
+Jeder der drei Verifier wird mit ThresholdWerten von 0.7 bis 0.95 getestet. Für jeden Threshold werden FAR und FRR
+auf den Testdaten gemessen. Zusätzlich wird der Santa Barbara Corpus als Stresstest für die False-Accept-Rate verwendet.
 
 ### Ordnerstruktur
 >*bitte noch ergänzen wenn Struktur aufgeräumt*
 
 ## Ergebnisse
->*wird ergänzt wenn coding part durch*
 
-**Vorläufige Erkenntnisse:**
-- Mehr positive Samples sorgen nicht automatisch für bessere Ergebnisse
-- Der Verifier reduziert Fehlalarme sinnvoll, ersetzt aber keine 
-  echte Sicherheitsmaßnahme
-- Der Use-Case muss genau definiert und die Trainingsdaten 
-  entsprechend angepasst werden
+### Threshold-Analyse
+
+Die Auswertung zeigt eine klare Trad-off zwishcen FAR und FRR in Abhängigkeit vom gewählten Thr3eshold:
+
+| Threshold | FRR (Zielperson) | FAR (männl. Sprecher) | FAR (weibl. Sprecher) |
+|-----------|-----------------|----------------------|----------------------|
+| 0.70 | 0% | 13.3% | 93.3% |
+| 0.80 | 0% | 0% | 40% |
+| 0.85 | 20% | 0% | 13.3% |
+| 0.90 | 60% | 0% | 0% |
+| 0.95 | 100% | 0% | 0% |
+
+Bei einem Threshold von 0.8 wird die beste Balance erziehlt: 
+Die Zielperson wird zuverlässig erkannt (FRR = 0%). Die männlichen Fremdsprecher werden hier vollständig abgelehtn (FAR= 0%).
+Die FAR für weibliche Sprecher beträgt hier noch 40%, das lässt sich jedoch zurück führen auf eine Ähnlichkeit in der Stimmcharakteristik.
+
+Ab Threshold 0.85 steigt der FRR bereits auf 20 %, was bedeutet, dass die Zielperson in einem von fünf Fällen nicht mehr erkannt wird.
+Bei 0.95 wird die Zielperson vollständig abgelehtn, somit kann man schließen dass das Modell für den praktischen Einsatz unbrauchbar ist.
+
+### Einfluss der Trainingsdatenmenge
+
+Mehr positive Trainingsdaten führen nicht automatisch zu besseren Ergebnissen. Dies deckt sich mit der Empfehlung von 
+openWakeWord selber, das explizit davon abrät, zu viele positive Beisepile zu verwenden, da dass Modell klein und auf wenig Sprecher
+ausgelegt ist.
+
+### Santa Barbara Corpus
+
+Der Test mit dem Santa Barbara Corppus ergab eine messbare False-Accept-Rate auch bei natürlicher Alltagssprache ohne das 
+Wake Word, was zeigt dass das Base Model gelegentlich fälschlicherweise aktiviert wird. Der Verifier konnte diese Fehlalarme
+in den meisten Fällen herausfiltern.
 
 ## Fazit
-> *wird nach Abschluss der Evaluation vollständig ergänzt*
+
+Die Forschungsfrage, oob ein Verifier Model mit GEwissheit zur sicheren Nutzverifikation eingesetzt werden kann, muss mit **Nein** 
+beantwortet werden.
+
+Der Verifier reduziert Fehlalarme sinnvoll und dtellt eine zweite Sicherheitsstufe dar. Er ist jedoch nicht zuverlässig genu, 
+um als alleinige Sicherheitsmaßnahke zu gelten. Vorallem die erhöhte FAR bei weiblichen Fremdsprechern zeigt, dass das Modell bei ähnlichen
+Stimmcharakteristiken an seine GRenzen stößt.
+
+Folgende Erkenntnisse lassen sich festhalten:
+
+- Ein Threshold von 0.8 bietet den besten Kompromiss zwischen Sicherheit (FAR) und Nutzerfreundlichkeit (FRR)
+- Mehr positive Trainingssamples verbessern die Ergbnisse nicht automatisch, dies bestätigt die Warnung von openWakeWord
+- Der Use-Case muss genau definiert werden, da für eine Komfortanwendung ist der Verifier gut geeignt, für sicherheitskritische Anwendungen
+  jedoch nicht ausreichend
+- Zukünftig könnten mehr negative Trainingsdaten der Zielperson sowie synthetische Daten die Ergebnisse verbessern
 
 ## Quellen
 - dscripka, *openWakeWord* – GitHub-Repository inkl. Dokumentation 
@@ -159,3 +231,7 @@ Verifier auf realistischer gesprochene Sprache getestet.
   arXiv:2407.18985
 - Du Bois et al., *Santa Barbara Corpus of Spoken American English*, 
   UC Santa Barbara / Linguistic Data Consortium
+- Larcher, A., Lee, K. A., Ma, B. & Li, H. (2014). 
+  *Text-dependent Speaker Verification: Classifiers, databases 
+  and RSR2015.* Speech Communication, 60, 56–77. 
+  [sciencedirect.com](https://www.sciencedirect.com/science/article/pii/S0167639314000156)
