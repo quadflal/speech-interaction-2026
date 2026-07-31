@@ -107,7 +107,7 @@ ob die Stimme zur Zielperson gehört. Nur wenn beide Modelle positiv ausschlage,
 ### Versuchsaufbau
 
 Um die Robustheit des Systems zu evaluieren, wurden drei Varianten des Verifiers mit unterschiedlich
-vielen Trainingsdaten trainiert (3, 5 und 10 positive Clips).
+vielen Trainingsdaten trainiert (3, 6 und 10 positive Clips).
 
 Jede Variante wurde unter diesen Bedingungen getestet:
 
@@ -167,7 +167,7 @@ kopiert, sodass die Originaldateienn erhalten bleiben.
 
 **3. Verifier Training**
 
-Es werden drei Verifier mit unterschiedlich vielen positiven Trainngsclips trainiert (3, 5 und 10). Die
+Es werden drei Verifier mit unterschiedlich vielen positiven Trainngsclips trainiert (3, 6 und 10). Die
 negativen Clips bleiben dabei identisch. Jedes trainierte Modell wird als '.pkl'-Datei im Drive gespeichert.
 
 **4. Evaluation und Threshold-Analyse**
@@ -191,6 +191,9 @@ Die Auswertung zeigt eine klare Trad-off zwishcen FAR und FRR in Abhängigkeit v
 | 0.85 | 20% | 0% | 13.3% |
 | 0.90 | 60% | 0% | 0% |
 | 0.95 | 100% | 0% | 0% |
+
+![Threshold Analyse](images/False_Acceptance_Rate_Threshold.png)
+*Abbildung 1: FAR und FRR in Abhängigkeit vom Threshold*
 
 Bei einem Threshold von 0.8 wird die beste Balance erziehlt: 
 Die Zielperson wird zuverlässig erkannt (FRR = 0%). Die männlichen Fremdsprecher werden hier vollständig abgelehtn (FAR= 0%).
