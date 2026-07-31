@@ -19,10 +19,11 @@ zwischen der gesetzten Zielperson und fremden Sprechern zu
 unterscheiden. Dazu wurden mit dem Open-Source-Framework 
 [openWakeWord](https://github.com/dscripka/openWakeWord) mehrere 
 Verifier Modelle trainiert und unter verschiedenen Bedingungen 
-evaluiert. Als Messgrößen dienten die False-Accept-Rate und die 
-False-Reject-Rate. Die Ergebnisse zeigen, dass Verifier Modelle 
-Fehlalarme sinnvoll reduzieren können, jedoch nicht als alleinige 
-Sicherheitsmaßnahme geeignet sind.
+evaluiert. Als Messgrößen dienten die False-Accept-Rate (FAR) und die 
+False-Reject-Rate (FRR). Die Ergebnisse zeigen, dass ein Threshold von 0.8 
+den besten Kompromis zwischen Sicherheit und Nutzerfreundlichkeit bietet.
+Verifier Modelle können Fehlalarme sinnvoll reduzieren, sind jedoch nicht als 
+alleinige Sicherheitsmaßnahme geeignet.
 
 ## Durchführung
 
