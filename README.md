@@ -49,7 +49,7 @@ Um die Ergebnisse nachzuvollziehen oder selber zu reproduzieren, muss das Notebo
 
 Die vollständige Dokumentation ist hier verfügbar:
 
-- 🇩🇪 [Dokumentation (Deutsch)](Documentation.md)
+- 🇩🇪 [Dokumentation (Deutsch)](Documentation_Deutsch.md)
 - 🇬🇧 [Documentation (English)](Documentation_English.md)
 
 
