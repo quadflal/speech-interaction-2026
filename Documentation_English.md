@@ -191,7 +191,16 @@ Additionally, the Santa Barbara Corpus is used as a stress test for the
 False Accept Rate.
 
 ### Folder Structure
-> *please add once structure is finalized*
+
+```text
+speech_interaction/
+├── evaluations/ (Santa Barbara Corpus)
+├── recordings/ (Original recordings)
+├── recordings_converted/ (Converted recordings)
+├── models/ (Alexa Model from openWakeWord)
+├── verifier/ (Trained Verifiers)
+└── Evaluation.ipynb (Notebook)
+```
 
 ## Results
 
