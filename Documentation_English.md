@@ -6,7 +6,7 @@ Computer Science and Media degree at the Stuttgart Media University.
 > [!NOTE]
 > This is the English translation of the original German documentation.
 > AI tools were used to translate the original German documentation.
-> Die Originalversion kann hier gefunden werden: [German Documentation](/Dokumentation_Deutsch.md)
+> 🇩🇪 Die Originalversion kann hier gefunden werden: [German Documentation](/Dokumentation_Deutsch.md)
 
 ### Table of Contents
 
