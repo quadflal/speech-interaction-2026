@@ -7,7 +7,7 @@ Medieninformatik an der Hochschule der Medien Stuttgart.
 
 **Team**
 
-> [!WARN]
+> [!NOTE]
 > Die Verteilung der Commit pro Teammitglied spiegelt nicht die eingebrachte Arbeit in Stunden wieder. 
 
 - Sophie Barke (sb324) 
