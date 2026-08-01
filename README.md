@@ -6,6 +6,10 @@ Es handelt sich um ein Uni-Projekt im Modul **Speech Interaction** (SS 2026) im 
 Medieninformatik an der Hochschule der Medien Stuttgart.
 
 **Team**
+
+> [!WARN]
+> Die Verteilung der Commit pro Teammitglied spiegelt nicht die eingebrachte Arbeit in Stunden wieder. 
+
 - Sophie Barke (sb324) 
 - Alex Quadflieg (aq004) 
 - Julia Herold (jh308) 
